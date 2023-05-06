@@ -28,8 +28,13 @@ def ordenarDiccionario(diccionario_par, clave, descendente=True):
                                                                 'clave3':[3,2,1]}
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
-
+def ordenarDiccionario(diccionario, clave, descendente=True):
+    if not isinstance(diccionario, dict) or clave not in diccionario:
+        return None
+    indices_ordenados = sorted(range(len(diccionario[clave])), 
+                               key=lambda i: diccionario[clave][i], 
+                               reverse=descendente)
+    return {k:[v[i] for i in indices_ordenados] for k,v in diccionario.items()}
 def listaEnteros(inicio, tamanio):
     '''
     Esta función devuelve una lista de números enteros
@@ -40,7 +45,9 @@ def listaEnteros(inicio, tamanio):
         ListaEnteros(10,5) debe retornar [10,11,12,13,14]
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    if not isinstance(inicio, int) or not isinstance(tamanio, int) or inicio < 0 or tamanio < 0:
+        return None
+    return [inicio + i for i in range(tamanio)]
 
 def dividirDosNumeros(dividendo, divisor):
     '''
@@ -52,7 +59,9 @@ def dividirDosNumeros(dividendo, divisor):
         DividirDosNumeros(10,3) debe retornar 3, 1
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    if not isinstance(dividendo, (int, float)) or not isinstance(divisor, (int, float)) or divisor == 0:
+        return None
+    return int(dividendo // divisor), dividendo % divisor
 
 def claseAnimal(especie, color):
     '''
@@ -73,7 +82,15 @@ def claseAnimal(especie, color):
         a.CumpliAnios() -> debe devolver 3
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    class Animal:
+    def __init__(self, especie, color):
+        self.edad = 0
+        self.especie = especie
+        self.color = color
+    
+    def cumplirAnios(self):
+        self.edad += 1
+        return self.edad
 
 def exponente(numero, exponente):
     '''
@@ -85,7 +102,9 @@ def exponente(numero, exponente):
         Exponente(10,3) debe retornar 1000
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    if not isinstance(numero, (int, float)) or not isinstance(exponente, (int, float)):
+        return None
+    return numero ** exponente
 
 def listaPrimos(desde, hasta):
     '''
@@ -103,7 +122,19 @@ def listaPrimos(desde, hasta):
         ListaPrimos(1,7) debe retonan [1,2,3,5,7]
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+     if not isinstance(desde, int) or not isinstance(hasta, int) or desde < 1 or hasta < 1 or hasta < desde:
+        return None
+    numeros_primos = []
+    for i in range(desde, hasta+1):
+        if i == 1:
+            numeros_primos.append(i)
+            continue
+        for j in range(2, int(i**0.5)+1):
+            if i % j == 0:
+                break
+        else:
+            numeros_primos.append(i)
+    return numeros_primos
 
 def listaRepetidos(lista):
     '''
@@ -121,4 +152,14 @@ def listaRepetidos(lista):
         ListaRepetidos([1,2,2,4]) debe retornar [(1,1),(2,2),(4,1)]
     '''
     #Tu código aca:
-    return 'Funcion incompleta'
+    contador = {}
+    for elemento in lista:
+        if elemento in contador:
+            contador[elemento] += 1
+        else:
+            contador[elemento] = 1
+    
+    # creamos una nueva lista con los elementos que se repiten más de una vez
+    repetidos = [elemento for elemento, cantidad in contador.items() if cantidad > 1]
+    
+    return repetidos
